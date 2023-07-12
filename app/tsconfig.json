@@ -25,6 +25,7 @@
     ]
   },
   "exclude": [
+    "test",
     "node_modules",
     "cdk.out"
   ]
