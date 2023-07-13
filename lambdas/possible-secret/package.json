@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1398.0",
-    "aws-cdk-lib": "2.63.0"
+    "aws-cdk-lib": "2.80.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
