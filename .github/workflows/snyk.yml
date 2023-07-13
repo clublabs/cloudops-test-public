@@ -8,7 +8,7 @@ jobs:
       - name: Install and Build
         run: |
           yarn
-          yarn build-lib
+          yarn build
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
