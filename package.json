@@ -10,7 +10,8 @@
   "workspaces": {
     "packages": [
       "app",
-      "web"
+      "web",
+      "lambdas/"
     ]
   },
   "devDependencies": {

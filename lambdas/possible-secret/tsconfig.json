@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": ["es2021"],
+    "target": "es2021",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "preserveConstEnums": true,
+    "noEmit": false,
+    "sourceMap": false,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}
