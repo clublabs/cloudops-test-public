@@ -11,7 +11,7 @@
     "packages": [
       "app",
       "web",
-      "lambdas/"
+      "lambdas/**"
     ]
   },
   "devDependencies": {
