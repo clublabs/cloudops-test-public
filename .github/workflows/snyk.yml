@@ -1,18 +1,62 @@
-name: Example workflow using Snyk
-on: push
+name: GitHub Actions Demo
+on: workflow_dispatch
 jobs:
-  security:
+  
+  Snyk_SCA_Test:
     runs-on: ubuntu-latest
+    container:
+      image: gradle:7.3.3-jdk17
     steps:
       - uses: actions/checkout@master
-      - name: Install and Build
-        run: |
-          yarn
-          yarn build
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        uses: snyk/actions/gradle-jdk17@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --all-projects
-          command: monitor
+          
+  Snyk_SAST_Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master   
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --code 
+        continue-on-error: true
+        
+      - run: npm install snyk-to-html -g
+    
+      - name: Generating json with results
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --code --json > results.json
+        continue-on-error: true
+          
+      - name: Convert Snyk Json to html report
+        run: snyk-to-html -i results.json -o results.html
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Upload Snyk Results Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: results.html
+          path: results.html
+
+  Snyk_IaC_Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle-jdk17@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --iac     
